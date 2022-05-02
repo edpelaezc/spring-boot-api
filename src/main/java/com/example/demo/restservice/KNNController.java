@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @RestController
 public class KNNController {
     @PostMapping("/recommendations")
-    public KNN greeting(@RequestBody MovieForm movie) throws IOException, InterruptedException {
+    public KNN knn(@RequestBody MovieForm movie) throws IOException, InterruptedException {
         // ProcessBuilder pb = new ProcessBuilder("python3","/home/edroot/scripts/knn.py", movie.getMovie_title());
         ProcessBuilder pb = new ProcessBuilder("python3","/Users/eduardopelaez/Downloads/demo/src/main/resources/knn.py", movie.getMovie_title());
         Process p = pb.start();
