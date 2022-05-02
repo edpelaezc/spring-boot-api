@@ -3,7 +3,7 @@ package com.example.demo.helpers;
 public class Movie {
     public String movie_title;
     public String imdb_score;
-    public String num_user_for_reviews;
+    public String num_critic_for_reviews;
     public String score;
 
     public String getMovie_title() {
@@ -22,12 +22,12 @@ public class Movie {
         this.imdb_score = imdb_score;
     }
 
-    public String getNum_user_for_reviews() {
-        return num_user_for_reviews;
+    public String getNum_critic_for_reviews() {
+        return num_critic_for_reviews;
     }
 
-    public void setNum_user_for_reviews(String num_user_for_reviews) {
-        this.num_user_for_reviews = num_user_for_reviews;
+    public void setNum_critic_for_reviews(String num_critic_for_reviews) {
+        this.num_critic_for_reviews = num_critic_for_reviews;
     }
 
     public String getScore() {

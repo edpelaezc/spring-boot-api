@@ -1,14 +1,32 @@
 import json
 import sys
+import numpy as np
 import pandas as pd
 from Classifier import KNearestNeighbours
+import mysql.connector as connection
 
+
+try:
+    mydb = connection.MySQLConnection(
+        host = "recomendation-project-database.cajn3aappwsy.us-east-1.rds.amazonaws.com",
+        database = 'recomendation_project_database',
+        user = "admin",
+        passwd = "abc123**"
+    )
+
+    query = "SELECT * FROM MOVIES_TABLE;"
+    result_dataFrame = pd.read_sql(query,mydb)
+    mydb.close() #close the connection
+except Exception as e:
+    mydb.close()
 
 
 # Load dataset to a data frame
-data = pd.read_csv(r'/Users/eduardopelaez/Downloads/demo/src/main/resources/movie_metadata.csv')
+#data = pd.read_csv(r'/Users/eduardopelaez/Downloads/demo/src/main/resources/movie_metadata.csv')
+data = result_dataFrame
 # Create a new data frame with relevant columns only
-df = data[['genres', 'movie_title', 'imdb_score', 'movie_imdb_link']].copy()
+df = data[['genres', 'movie_title', 'imdb_score', 'plot_keywords']].copy()
+df['imdb_score'] = df['imdb_score'].astype(np.float64)
 # Fetch genres of all movies
 genres_all_movies = [df.loc[i]['genres'].split('|') for i in df.index]
 # Find the list of genres of all movies in alphabetical order
@@ -21,7 +39,7 @@ movie_titles = list()
 # Iterate over the data frame
 for i in df.index:
     # Append movie title and the index of the movie
-    movie_titles.append((df.loc[i]['movie_title'].strip(), i, df.loc[i]['movie_imdb_link'].strip()))
+    movie_titles.append((df.loc[i]['movie_title'].strip(), i, df.loc[i]['plot_keywords'].strip()))
     # Add list of genres of the movies (1/0) to movie data
     movie_data = [1 if genre in df.loc[i]['genres'].split('|') else 0 for genre in genres]
     # Add IMDb score of the movie to the movie data
@@ -71,5 +89,5 @@ table = KNN_Movie_Recommender(test_points, 5)
 
 #print("Recomendaciones")
 #print(table)
-response = pd.DataFrame(table, columns=['movie_title', 'movie_imdb_link', 'imdb_score']).to_json(orient='records')
+response = pd.DataFrame(table, columns=['movie_title', 'plot_keywords', 'imdb_score']).to_json(orient='records')
 print(response)
