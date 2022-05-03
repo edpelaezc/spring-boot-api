@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
 import com.example.demo.helpers.ColdStart;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ColdStartController {
 
+    @CrossOrigin
     @GetMapping("/coldstart")
     public ColdStart coldStart(@RequestParam(value = "name", defaultValue = "World") String name)
             throws IOException, InterruptedException {

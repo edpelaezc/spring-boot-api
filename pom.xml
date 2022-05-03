@@ -35,7 +35,12 @@
       <groupId>org.json</groupId>  
       <artifactId>json</artifactId>  
       <version>20201115</version> 
-    </dependency> 
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>  
   <build> 
     <plugins> 

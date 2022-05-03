@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 @RestController
 public class KNNController {
+
+    @CrossOrigin
     @PostMapping("/recommendations")
     public KNN knn(@RequestBody MovieForm movie) throws IOException, InterruptedException {
         // ProcessBuilder pb = new

@@ -2,6 +2,7 @@ package com.example.demo.restservice;
 
 import com.example.demo.helpers.KNN;
 import com.example.demo.helpers.KNNGenreBased;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,8 @@ import java.util.stream.Collectors;
 
 @RestController
 public class KNNGenreBasedController {
+
+    @CrossOrigin
     @PostMapping("/knnGenreBased")
     public KNNGenreBased knnGenreBased(@RequestBody GenresForm genres) throws IOException, InterruptedException {
         // ProcessBuilder pb = new
