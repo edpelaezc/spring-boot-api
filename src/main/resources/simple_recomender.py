@@ -11,15 +11,15 @@ import mysql.connector as connection
 
 try:
     mydb = connection.MySQLConnection(
-        host = "recomendation-project-database.cajn3aappwsy.us-east-1.rds.amazonaws.com",
-        database = 'recomendation_project_database',
-        user = "admin",
-        passwd = "abc123**"
+        host="recomendation-project-database.cajn3aappwsy.us-east-1.rds.amazonaws.com",
+        database='recomendation_project_database',
+        user="admin",
+        passwd="abc123**"
     )
 
     query = "SELECT * FROM MOVIES_TABLE;"
-    result_dataFrame = pd.read_sql(query,mydb)
-    mydb.close() #close the connection
+    result_dataFrame = pd.read_sql(query, mydb)
+    mydb.close()  # close the connection
 except Exception as e:
     mydb.close()
 
@@ -28,7 +28,7 @@ except Exception as e:
 #metadata = pd.read_csv('movie_metadata.csv', low_memory=False)
 metadata = result_dataFrame
 # Print the first three rows
-#metadata.head(3)
+# metadata.head(3)
 metadata.head(3)
 
 
@@ -36,18 +36,20 @@ metadata.head(3)
 
 
 # Calculate mean of vote average column
-metadata['imdb_score'] = pd.to_numeric(metadata['imdb_score'], downcast="float")
+metadata['imdb_score'] = pd.to_numeric(
+    metadata['imdb_score'], downcast="float")
 C = metadata['imdb_score'].mean()
-#print(C)
+# print(C)
 
 
 # In[91]:
 
 
 # Calculate the minimum number of votes required to be in the chart, m
-metadata['num_critic_for_reviews'] = pd.to_numeric(metadata['num_critic_for_reviews'])
+metadata['num_critic_for_reviews'] = pd.to_numeric(
+    metadata['num_critic_for_reviews'])
 m = metadata['num_critic_for_reviews'].quantile(0.90)
-#print(m)
+# print(m)
 
 
 # In[92]:
@@ -79,9 +81,10 @@ q_movies['score'] = q_movies.apply(weighted_rating, axis=1)
 # In[95]:
 
 
-#Sort movies based on score calculated above
+# Sort movies based on score calculated above
 q_movies = q_movies.sort_values('score', ascending=False)
 
-#Print the top 15 movies
+# Print the top 15 movies
 #print(q_movies[['movie_title', 'imdb_score', 'num_user_for_reviews', 'score']].head(10))
-print(q_movies[['movie_title', 'imdb_score', 'num_critic_for_reviews', 'score']].head(10).to_json(orient='records'))
+print(q_movies[['movie_title', 'imdb_score', 'num_critic_for_reviews', 'score']].head(
+    10).to_json(orient='records'))
