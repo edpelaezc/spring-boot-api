@@ -13,12 +13,15 @@ import java.util.stream.Collectors;
 public class KNNController {
     @PostMapping("/recommendations")
     public KNN knn(@RequestBody MovieForm movie) throws IOException, InterruptedException {
-        // ProcessBuilder pb = new ProcessBuilder("python3","/home/edroot/scripts/knn.py", movie.getMovie_title());
-        ProcessBuilder pb = new ProcessBuilder("python3","/Users/eduardopelaez/Downloads/demo/src/main/resources/knn.py", movie.getMovie_title());
+        // ProcessBuilder pb = new
+        // ProcessBuilder("python3","/home/edroot/scripts/knn.py",
+        // movie.getMovie_title());
+        ProcessBuilder pb = new ProcessBuilder("python3", System.getProperty("user.dir") + "/src/main/resources/knn.py",
+                movie.getMovie_title());
         Process p = pb.start();
 
         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String input =  in.lines().collect(Collectors.joining());
+        String input = in.lines().collect(Collectors.joining());
         return new KNN(200, input);
     }
 }
