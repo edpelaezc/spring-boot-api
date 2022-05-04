@@ -2,7 +2,7 @@ package com.example.demo.helpers;
 
 public class Recommendation {
     public String movie_title;
-    public String plot_keywords;
+    public String genres;
     public String imdb_score;
 
     public String getMovie_title() {
@@ -13,12 +13,12 @@ public class Recommendation {
         this.movie_title = movie_title;
     }
 
-    public String getPlot_keywords() {
-        return plot_keywords;
+    public String getGenres() {
+        return genres;
     }
 
-    public void setPlot_keywords(String plot_keywords) {
-        this.plot_keywords = plot_keywords;
+    public void setGenres(String genres) {
+        this.genres = genres;
     }
 
     public String getImdb_score() {
